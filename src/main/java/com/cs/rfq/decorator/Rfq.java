@@ -15,6 +15,7 @@ public class Rfq implements Serializable {
     private Long quantity;
     private Double price;
     private String side;
+    private String customerId;
 
     public static Rfq fromJson(String json) {
         //TODO: build a new RFQ setting all fields from data passed in the RFQ json message
@@ -28,6 +29,7 @@ public class Rfq implements Serializable {
         rfq.quantity = Long.valueOf(fields.get("qty"));
         rfq.price = Double.valueOf(fields.get("price"));
         rfq.side = fields.get("side");
+        rfq.customerId = fields.get("customerId");
         System.out.println("qwer");
         return rfq;
 
@@ -60,6 +62,14 @@ public class Rfq implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String isin) {
+        this.isin = customerId;
     }
 
     public String getIsin() {
