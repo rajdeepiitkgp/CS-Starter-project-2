@@ -10,21 +10,20 @@ import org.joda.time.DateTimeConstants;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtractor {
+public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtractor {
 
     private String since;
     private String to;
 
-    public VolumeTradedWithEntityPastYearExtractor() {
+    public OverallVolumeTradedWithEntityPastYearExtractor() {
         this.since = DateTime.now().getYear() - 1 + "-01-01";
         this.to = DateTime.now().getYear() - 1 + "-12-31";
     }
 
     @Override
     public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades) {
-        String query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND SecurityID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        String query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
-                rfq.getIsin(),
                 since,
                 to);
         System.out.println("Year:" + query);
@@ -37,15 +36,14 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         }
 
         Map<RfqMetadataFieldNames, Object> results = new HashMap<>();
-        results.put(RfqMetadataFieldNames.volumeTradedPastYearForThisEntity, volume);
+        results.put(RfqMetadataFieldNames.overallVolumeTradedPastYear, volume);
 
         DateTime lastMonth = DateTime.now().minusMonths(1);
         setSince(lastMonth.getYear() + "-" + (lastMonth.getMonthOfYear() < 10 ? "0" + lastMonth.getMonthOfYear() : lastMonth.getMonthOfYear()) + "-01");
         setTo(lastMonth.getYear() + "-" + (lastMonth.getMonthOfYear() < 10 ? "0" + lastMonth.getMonthOfYear() : lastMonth.getMonthOfYear()) + "-" + new DateTime(DateTime.now().getYear(), DateTime.now().getMonthOfYear(), 1, 0, 0).minusDays(1).getDayOfMonth());
 
-        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND SecurityID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
-                rfq.getIsin(),
                 since,
                 to);
         System.out.println("Month: " + query);
@@ -56,7 +54,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         if (volume == null) {
             volume = 0L;
         }
-        results.put(RfqMetadataFieldNames.volumeTradedPastMonthForThisEntity, volume);
+        results.put(RfqMetadataFieldNames.overallVolumeTradedPastMonth, volume);
 
         DateTime now = DateTime.now();
         DateTime monday = now.minusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
@@ -64,9 +62,8 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         setSince(monday.getYear() + "-" + (monday.getMonthOfYear() < 10 ? "0" + monday.getMonthOfYear() : monday.getMonthOfYear()) + "-" + (monday.getDayOfMonth() < 10 ? "0" + monday.getDayOfMonth() : monday.getDayOfMonth()));
         setTo(sunday.getYear() + "-" + (sunday.getMonthOfYear() < 10 ? "0" + sunday.getMonthOfYear() : sunday.getMonthOfYear()) + "-" + (sunday.getDayOfMonth() < 10 ? "0" + sunday.getDayOfMonth() : sunday.getDayOfMonth()));
 
-        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND SecurityID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
-                rfq.getIsin(),
                 since,
                 to);
         System.out.println("Week: " + query);
@@ -78,7 +75,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
             volume = 0L;
         }
 
-        results.put(RfqMetadataFieldNames.volumeTradedPastWeekForThisEntity, volume);
+        results.put(RfqMetadataFieldNames.overallVolumeTradedPastWeek, volume);
         return results;
     }
 
