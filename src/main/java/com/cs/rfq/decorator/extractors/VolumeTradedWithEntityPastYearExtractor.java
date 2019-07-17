@@ -4,7 +4,9 @@ import com.cs.rfq.decorator.Rfq;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +58,27 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
             volume = 0L;
         }
 
-        results.put(RfqMetadataFieldNames.volumeTradedPastMonth, volume);
+        DateTime now = DateTime.now();
+        DateTime monday = now.minusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
+        DateTime sunday = monday.plusDays(6);
+        setSince(monday.getYear() + "-" + (monday.getMonthOfYear() < 10 ? "0" + monday.getMonthOfYear() : monday.getMonthOfYear()) + "-" + (monday.getDayOfMonth() < 10 ? "0" + monday.getDayOfMonth() : monday.getDayOfMonth()));
+        setTo(sunday.getYear() + "-" + (sunday.getMonthOfYear() < 10 ? "0" + sunday.getMonthOfYear() : sunday.getMonthOfYear()) + "-" + (sunday.getDayOfMonth() < 10 ? "0" + sunday.getDayOfMonth() : sunday.getDayOfMonth()));
+
+        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND SecurityID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+                rfq.getCustomerId(),
+                rfq.getIsin(),
+                since,
+                to);
+        System.out.println("Week: " + query);
+        trades.createOrReplaceTempView("trade");
+        sqlQueryResults = session.sql(query);
+
+        volume = sqlQueryResults.first().get(0);
+        if (volume == null) {
+            volume = 0L;
+        }
+
+        results.put(RfqMetadataFieldNames.volumeTradedPastWeek, volume);
         return results;
     }
 
