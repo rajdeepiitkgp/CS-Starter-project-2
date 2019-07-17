@@ -57,6 +57,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         if (volume == null) {
             volume = 0L;
         }
+        results.put(RfqMetadataFieldNames.volumeTradedPastMonth, volume);
 
         DateTime now = DateTime.now();
         DateTime monday = now.minusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
