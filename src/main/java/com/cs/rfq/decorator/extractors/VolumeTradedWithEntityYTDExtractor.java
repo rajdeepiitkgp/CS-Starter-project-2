@@ -20,13 +20,15 @@ public class VolumeTradedWithEntityYTDExtractor implements RfqMetadataExtractor 
     @Override
     public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades) {
 
-        String query = String.format("SELECT sum(LastQty) from trade where EntityId='%s' AND SecurityId='%s' AND TradeDate >= '%s'",
+        String query = String.format("SELECT sum(LastQty) from trade where EntityId='%s' AND SecurityID='%s' AND TradeDate >= '%s'",
                 rfq.getEntityId(),
                 rfq.getIsin(),
                 since);
 
+        System.out.println(query);
         trades.createOrReplaceTempView("trade");
         Dataset<Row> sqlQueryResults = session.sql(query);
+        System.out.println(sqlQueryResults.count());
 
         Object volume = sqlQueryResults.first().get(0);
         if (volume == null) {
@@ -35,6 +37,7 @@ public class VolumeTradedWithEntityYTDExtractor implements RfqMetadataExtractor 
 
         Map<RfqMetadataFieldNames, Object> results = new HashMap<>();
         results.put(RfqMetadataFieldNames.volumeTradedYearToDate, volume);
+
         return results;
     }
 
