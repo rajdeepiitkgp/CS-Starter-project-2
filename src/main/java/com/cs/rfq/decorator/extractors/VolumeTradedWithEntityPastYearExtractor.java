@@ -64,7 +64,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         setSince(monday.getYear() + "-" + (monday.getMonthOfYear() < 10 ? "0" + monday.getMonthOfYear() : monday.getMonthOfYear()) + "-" + (monday.getDayOfMonth() < 10 ? "0" + monday.getDayOfMonth() : monday.getDayOfMonth()));
         setTo(sunday.getYear() + "-" + (sunday.getMonthOfYear() < 10 ? "0" + sunday.getMonthOfYear() : sunday.getMonthOfYear()) + "-" + (sunday.getDayOfMonth() < 10 ? "0" + sunday.getDayOfMonth() : sunday.getDayOfMonth()));
 
-        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND SecurityID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TraderId=SecurityID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
                 rfq.getIsin(),
                 since,
