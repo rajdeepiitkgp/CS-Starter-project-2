@@ -11,7 +11,8 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class TradeSideBiasExtrctorTest extends AbstractSparkUnitTest{
+public class OverallVolumeTradedWithEntityPastYearExtractorTest extends AbstractSparkUnitTest{
+
     private Rfq rfq;
 
     @Before
@@ -20,34 +21,37 @@ public class TradeSideBiasExtrctorTest extends AbstractSparkUnitTest{
         rfq.setId("732");
         rfq.setEntityId(5561279226039690843L);
         rfq.setIsin("AT0000A10683");
-        rfq.setCustomerId(12002L );
-        rfq.setTraderId(7514623710987345030L);
+        rfq.setCustomerId(13002L );
+        rfq.setTraderId(8514623710987345030L);
         rfq.setPrice(121.99);
         rfq.setSide("2");
     }
 
 
     @Test
-    public void checkRatioWhenAllTradesMatch() {
+    public void checkEnityTradesWhenAllTradesMatch() {
 
         //String filePath = getClass().getResource("all-trades.json").getPath();
         Dataset<Row> trades = new TradeDataLoader().loadTrades(session, "src/test/resources/trades/all-trades.json");
 
-        TradeSideBiasExtractor extractor = new TradeSideBiasExtractor();
+        OverallVolumeTradedWithEntityPastYearExtractor extractor = new OverallVolumeTradedWithEntityPastYearExtractor();
 
 
         Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
 
-        Object result = meta.get(RfqMetadataFieldNames.tradeBiasPastMonth);
+        Object result = meta.get(RfqMetadataFieldNames.overallVolumeTradedPastWeek);
 
-        assertEquals(2.0F, result);
+        assertEquals(350000L, result);
 
-        Object result1 = meta.get(RfqMetadataFieldNames.tradeBiasPastWeek);
+        Object result1 = meta.get(RfqMetadataFieldNames.overallVolumeTradedPastMonth);
 
-        assertEquals(0.5F, result1);
+        assertEquals(250000L, result1);
 
+        Object result2 = meta.get(RfqMetadataFieldNames.overallVolumeTradedPastYear);
 
-
+        assertEquals(150000L, result2);
 
     }
+
+
 }
