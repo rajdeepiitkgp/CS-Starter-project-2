@@ -38,7 +38,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         }
 
         Map<RfqMetadataFieldNames, Object> results = new HashMap<>();
-        results.put(RfqMetadataFieldNames.volumeTradedPastYear, volume);
+        results.put(RfqMetadataFieldNames.volumeTradedPastYearForThisEntity, volume);
 
         DateTime lastMonth = DateTime.now().minusMonths(1);
         setSince(lastMonth.getYear() + "-" + (lastMonth.getMonthOfYear() < 10 ? "0" + lastMonth.getMonthOfYear() : lastMonth.getMonthOfYear()) + "-01");
@@ -78,7 +78,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
             volume = 0L;
         }
 
-        results.put(RfqMetadataFieldNames.volumeTradedPastWeek, volume);
+        results.put(RfqMetadataFieldNames.volumeTradedPastWeekForThisEntity, volume);
         return results;
     }
 

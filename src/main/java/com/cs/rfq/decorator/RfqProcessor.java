@@ -8,7 +8,6 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +44,8 @@ public class RfqProcessor {
         extractors.add(new VolumeTradedWithEntityYTDExtractor());
         extractors.add(new VolumeTradedWithEntityPastYearExtractor());
         extractors.add(new OverallVolumeTradedWithEntityPastYearExtractor());
+        //extractors.add(new AverageTradedPriceExtractor());
+        extractors.add(new TradeSideBiasExtractor());
         extractors.add(new AverageTradedPriceExtractor());
     }
 

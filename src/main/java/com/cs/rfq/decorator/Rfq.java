@@ -30,7 +30,6 @@ public class Rfq implements Serializable {
         rfq.price = Double.valueOf(fields.get("price"));
         rfq.side = fields.get("side");
         rfq.customerId = Long.valueOf(fields.get("customerId"));
-        //System.out.println("qwer");
         return rfq;
 
     }
