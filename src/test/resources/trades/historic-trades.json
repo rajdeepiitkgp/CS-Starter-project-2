@@ -1,16 +1,20 @@
-{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 850000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12041}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12042}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12043}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':1205}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':1206}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':1207}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 150000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
 {'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
-{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
-{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
-{id:,instrumentId:'AT000010683', raderId:7514623710987345030, entityId5561279226039691000,qty234,price2345,side:1,customerId12002}
-{id:1,instrumentId:"AT000010683", traderId:7514623710987345030, entityId:5561279226039691000,qty:234,price:2345,side:1,customerId:12002}
-{id:1,instrumentId:"AT000010683", traderId:7514623710987345030, entityId:5561279226039691000,qty:234,price:2345,side:1,customerId:12002}
-{id:1,instrumentId:"AT000010683", traderId:7514623710987345030, entityId:5561279226039691000,qty:234,price:2345,side:1,customerId:12002}
-{id:1,instrumentId:"AT000010683", traderId:7514623710987345030, entityId:5561279226039691000,qty:234,price:2345,side:1,customerId:12002}
-{id:1,instrumentId:"AT0000A10683", traderId:7514623710987345030, entityId:5561279226039691000,qty:234,price:2345,side:1,customerId:12002}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 350000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':1207}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':1207}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':1207}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 450000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 550000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 650000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 750000, 'price': 1.58, 'side': 'B' , 'customerId':12040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':62040}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'B' , 'customerId':120409}
+{'id': '123ABC', 'traderId': 3351266293154445953, 'entityId': 5561279226039690843,'instrumentId': 'AT0000383864','qty': 250000, 'price': 1.58, 'side': 'A' , 'customerId':12040}

@@ -1,8 +1,12 @@
 package com.cs.rfq.utils;
 
+import com.cs.rfq.exceptions.invalidOptionException;
+import org.apache.spark.sql.sources.In;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * Simple chat server capable of sending and receiving String lines on separate in/out port numbers.
@@ -11,7 +15,7 @@ public class ChatterboxServer {
 
     public static final int SERVER_PORT_OUT = 9000;
     public static final int SERVER_PORT_IN = 9001;
-    public static String file_path = "src/test/resources/trades/historic-trades.json";
+
 
     //thread for sending keyboard input to SERVER_PORT_OUT
     private static Thread rfqSenderOutputThread;
@@ -78,15 +82,68 @@ public class ChatterboxServer {
             try {
                 BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
                 PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+                String message = "Press 1 for New Input or Press 2 for recent Request";
+                System.out.println(message);
                 do {
                     //naive polling of System.in to check for input and allow thread to be interrupted
+
                     if (System.in.available() > 0) {
-                        String line = in.readLine();
-                        out.println(line);
+
+                        SearchTool tool = new SearchTool();
+                        tool.setOption(Integer.parseInt(in.readLine()));
+                        try {
+                            if (tool.getOption() == 1) {
+                                System.out.println("Enter the Request");
+                                String line = in.readLine();
+                                tool.addHistory(line);
+                                out.println(line);
+                                out.flush();
+                                log("sent", line);
+                            } else if (tool.getOption() == 2) {
+                                System.out.println("Enter the Customer Id");
+                                tool.setCustomerId(Long.parseLong(in.readLine()));
+                                Map<Integer, String> rfqList = tool.showHistory(tool.getCustomerId());
+                                try {
+                                    if (rfqList.size()==0){
+                                        System.out.println("Customer Id do not exists!");
+                                        throw new invalidOptionException("Please enter correct Response");
+                                    }
+                                }catch (invalidOptionException e){
+                                    System.out.println(message);
+                                    continue;
+                                }
+                                System.out.println("Waiting for Response");
+                                int response = Integer.parseInt(in.readLine());
+                                try {
+
+                                    if (response < 1 || response > rfqList.size()) {
+                                        System.out.println("Invalid Request, Please Try again!");
+
+                                        throw new invalidOptionException("Please enter correct Response");
+                                    } else {
+                                        out.println(rfqList.get(response));
+                                        out.flush();
+                                        log("sent", rfqList.get(response));
+                                    }
+
+                                } catch (invalidOptionException e) {
+                                    System.out.println(message);
+
+                                    continue;
+                                }
 
 
-                        out.flush();
-                        log("sent", line);
+                            } else {
+                                throw new invalidOptionException("Please enter correct Response");
+                            }
+                        }
+                        catch (invalidOptionException e){
+                            System.out.println("Invalid Request, Please Try again!");
+                            System.out.println(message);
+                            continue;
+                        }
+
+                        System.out.println(message);
                     }  else {
                         Thread.sleep(500);
                     }
@@ -126,13 +183,7 @@ public class ChatterboxServer {
     private static void log(String status, String message) {
         System.out.printf("%-10s> %-14s %s%n", Thread.currentThread().getName(), status, message);
 
-        try{
-            FileWriter fw=new FileWriter(file_path,true);
-            fw.write(message);
-            if(message!="")
-                fw.write('\n');
-            fw.close();
-        }catch(Exception e){System.out.println(e);}
+
 
     }
 }
