@@ -44,7 +44,7 @@ public class RfqProcessor {
         extractors.add(new VolumeTradedWithEntityYTDExtractor());
         extractors.add(new VolumeTradedWithEntityPastYearExtractor());
         extractors.add(new OverallVolumeTradedWithEntityPastYearExtractor());
-        extractors.add(new AverageTradedPriceExtractor());
+        //extractors.add(new AverageTradedPriceExtractor());
         extractors.add(new TradeSideBiasExtractor());
     }
 
