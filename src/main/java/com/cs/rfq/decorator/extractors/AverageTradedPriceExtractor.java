@@ -1,5 +1,6 @@
-package com.cs.rfq.decorator;
+package com.cs.rfq.decorator.extractors;
 
+import com.cs.rfq.decorator.Rfq;
 import com.cs.rfq.decorator.extractors.RfqMetadataExtractor;
 import com.cs.rfq.decorator.extractors.RfqMetadataFieldNames;
 import org.apache.spark.sql.Dataset;
@@ -31,16 +32,16 @@ public class AverageTradedPriceExtractor  implements RfqMetadataExtractor {
         setSince(monday.getYear() + "-" + (monday.getMonthOfYear() < 10 ? "0" + monday.getMonthOfYear() : monday.getMonthOfYear()) + "-" + (monday.getDayOfMonth() < 10 ? "0" + monday.getDayOfMonth() : monday.getDayOfMonth()));
         setTo(sunday.getYear() + "-" + (sunday.getMonthOfYear() < 10 ? "0" + sunday.getMonthOfYear() : sunday.getMonthOfYear()) + "-" + (sunday.getDayOfMonth() < 10 ? "0" + sunday.getDayOfMonth() : sunday.getDayOfMonth()));
 
-      String query = String.format("SELECT sum(LastQty*LastPx)/sum(LastQty) from trade where CustomerID='%s' AND SecurityID='%s' AND TraderId='%s' and TradeDate >= '%s' AND TradeDate <= '%s'",
-                rfq.getCustomerId(),
-                rfq.getIsin(),rfq.getTraderId(),
+      String query = String.format("SELECT sum(LastQty*LastPx)/sum(LastQty) from trade where  SecurityID='%s'  AND TradeDate >= '%s' AND TradeDate <= '%s'",
+
+                rfq.getIsin(),
                 since,
                 to);
         System.out.println("Week: " + query);
         trades.createOrReplaceTempView("trade");
         Dataset<Row>sqlQueryResults = session.sql(query);
 
-        Object volume = sqlQueryResults.first().get(0);
+        Object volume = sqlQueryResults.first().get(0); System.out.println(volume);
         if (volume == null) {
             volume = 0L;
         }
