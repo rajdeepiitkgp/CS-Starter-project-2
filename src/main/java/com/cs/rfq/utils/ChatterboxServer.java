@@ -11,6 +11,7 @@ public class ChatterboxServer {
 
     public static final int SERVER_PORT_OUT = 9000;
     public static final int SERVER_PORT_IN = 9001;
+    public static String file_path = "src/test/resources/trades/historic-trades.json";
 
     //thread for sending keyboard input to SERVER_PORT_OUT
     private static Thread rfqSenderOutputThread;
@@ -64,6 +65,7 @@ public class ChatterboxServer {
                 try {
                     Socket socket = confServerSocket.accept();
                     receive(socket).start();
+                    //System.out.println("received happened");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -81,12 +83,15 @@ public class ChatterboxServer {
                     if (System.in.available() > 0) {
                         String line = in.readLine();
                         out.println(line);
+
+
                         out.flush();
                         log("sent", line);
                     }  else {
                         Thread.sleep(500);
                     }
                 } while (true);
+
 
             } catch (InterruptedException e) {
                 log("connection closed by server");
@@ -100,9 +105,11 @@ public class ChatterboxServer {
         return new Thread(() -> {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                 String line = in.readLine();
+
                 while (line != null) {
                     log("got response", line);
                     line = in.readLine();
+
                 }
                 socket.close();
                 //System.out.println("---- close socket -----");
@@ -118,5 +125,14 @@ public class ChatterboxServer {
 
     private static void log(String status, String message) {
         System.out.printf("%-10s> %-14s %s%n", Thread.currentThread().getName(), status, message);
+
+        try{
+            FileWriter fw=new FileWriter(file_path,true);
+            fw.write(message);
+            if(message!="")
+                fw.write('\n');
+            fw.close();
+        }catch(Exception e){System.out.println(e);}
+
     }
 }

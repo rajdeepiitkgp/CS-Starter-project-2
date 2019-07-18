@@ -4,6 +4,7 @@ import com.cs.rfq.decorator.Rfq;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 
@@ -37,7 +38,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         }
 
         Map<RfqMetadataFieldNames, Object> results = new HashMap<>();
-        results.put(RfqMetadataFieldNames.volumeTradedPastYearForThisEntity, volume);
+        results.put(RfqMetadataFieldNames.volumeTradedPastYear, volume);
 
         DateTime lastMonth = DateTime.now().minusMonths(1);
         setSince(lastMonth.getYear() + "-" + (lastMonth.getMonthOfYear() < 10 ? "0" + lastMonth.getMonthOfYear() : lastMonth.getMonthOfYear()) + "-01");
@@ -56,7 +57,6 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
         if (volume == null) {
             volume = 0L;
         }
-        results.put(RfqMetadataFieldNames.volumeTradedPastMonthForThisEntity, volume);
 
         DateTime now = DateTime.now();
         DateTime monday = now.minusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
@@ -78,7 +78,7 @@ public class VolumeTradedWithEntityPastYearExtractor implements RfqMetadataExtra
             volume = 0L;
         }
 
-        results.put(RfqMetadataFieldNames.volumeTradedPastWeekForThisEntity, volume);
+        results.put(RfqMetadataFieldNames.volumeTradedPastWeek, volume);
         return results;
     }
 
