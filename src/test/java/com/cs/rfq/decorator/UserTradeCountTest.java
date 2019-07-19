@@ -4,12 +4,8 @@ import com.cs.rfq.decorator.extractors.AbstractSparkUnitTest;
 import com.cs.rfq.decorator.extractors.RfqMetadataExtractor;
 import com.cs.rfq.decorator.extractors.RfqMetadataFieldNames;
 import com.cs.rfq.decorator.extractors.UserTradeCount;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.joda.time.DateTime;
 import org.junit.Test;
 
-import java.sql.Date;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;

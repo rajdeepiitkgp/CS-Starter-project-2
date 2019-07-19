@@ -24,6 +24,14 @@ public class TotalTradesWithEntityExtractor implements RfqMetadataExtractor {
                 .filter(trades.col("SecurityId").equalTo(rfq.getIsin()))
                 .filter(trades.col("EntityId").equalTo(rfq.getEntityId()));
 
+        //Dataset<Row> filtered_neumerator = trades.filter(trades.col("EntityId").equalTo(rfq.getEntityId())).filter(trades.col("TraderId").equalTo(rfq.getTraderId()));
+
+       // Dataset<Row> filtered_dinominator = trades.filter(trades.col("TraderId").equalTo(rfq.getTraderId()));
+
+        //System.out.println("Percentage = "+  ((100.0*filtered_neumerator.count())/filtered_dinominator.count()));
+
+        //Dataset<Row> num = trades.filter(trades.col(""))
+
         long tradesToday = filtered.filter(trades.col("TradeDate").$greater(new java.sql.Date(todayMs))).count();
         long tradesPastWeek = filtered.filter(trades.col("TradeDate").$greater(new java.sql.Date(pastWeekMs))).count();
         long tradesPastYear = filtered.filter(trades.col("TradeDate").$greater(new java.sql.Date(pastYearMs))).count();

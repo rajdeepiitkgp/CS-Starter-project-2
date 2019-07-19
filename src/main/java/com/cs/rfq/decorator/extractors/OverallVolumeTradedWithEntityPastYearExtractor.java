@@ -27,7 +27,7 @@ public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetada
                 rfq.getTraderId(),
                 since,
                 to);
-        System.out.println("Year:" + query);
+        //System.out.println("Year:" + query);
         trades.createOrReplaceTempView("trade");
         Dataset<Row> sqlQueryResults = session.sql(query);
 
@@ -48,7 +48,7 @@ public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetada
                 rfq.getTraderId(),
                 since,
                 to);
-        System.out.println("Month: " + query);
+        //System.out.println("Month: " + query);
         trades.createOrReplaceTempView("trade");
         sqlQueryResults = session.sql(query);
 
@@ -69,7 +69,7 @@ public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetada
                 rfq.getTraderId(),
                 since,
                 to);
-        System.out.println("Week: " + query);
+        //System.out.println("Week: " + query);
         trades.createOrReplaceTempView("trade");
         sqlQueryResults = session.sql(query);
 

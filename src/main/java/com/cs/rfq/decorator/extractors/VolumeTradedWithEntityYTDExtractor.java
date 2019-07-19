@@ -25,7 +25,7 @@ public class VolumeTradedWithEntityYTDExtractor implements RfqMetadataExtractor 
                 rfq.getIsin(),
                 since);
 
-        System.out.println(query);
+        //System.out.println(query);
         trades.createOrReplaceTempView("trade");
         Dataset<Row> sqlQueryResults = session.sql(query);
         System.out.println(sqlQueryResults.count());

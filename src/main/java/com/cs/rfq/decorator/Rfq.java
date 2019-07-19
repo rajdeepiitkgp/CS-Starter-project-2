@@ -17,6 +17,7 @@ public class Rfq implements Serializable {
     private String side;
     private Long customerId;
 
+
     public static Rfq fromJson(String json) {
         //TODO: build a new RFQ setting all fields from data passed in the RFQ json message
         Type t = new TypeToken<Map<String,String>>(){}.getType();

@@ -8,6 +8,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,7 @@ public class RfqProcessor {
         //extractors.add(new AverageTradedPriceExtractor());
         extractors.add(new TradeSideBiasExtractor());
         extractors.add(new AverageTradedPriceExtractor());
+        extractors.add (new UserTradeCount());
     }
 
     public void startSocketListener() throws InterruptedException {
@@ -74,6 +76,11 @@ public class RfqProcessor {
         extractors.forEach(e -> {
             metadata.putAll(e.extractMetaData(rfq, session, trades));
         });
+        Boolean liquidity = new LiquidityExtractor().checkLiquidity(DateTime.now(),3L,rfq,session);
+        if(liquidity)
+            System.out.println("The Security is Liquid in the market.");
+        else
+            System.out.println("The Security is NOT Liquid in the market.");
 
         //TODO: publish the metadata
         publisher.publishMetadata(metadata);

@@ -26,6 +26,7 @@ public class VolumeTradedWithEntityYTDExtractorTest extends AbstractSparkUnitTes
     public void checkVolumeWhenAllTradesMatch() {
 
         String filePath = getClass().getResource("volume-traded-1.json").getPath();
+        System.out.println(filePath);
         Dataset<Row> trades = new TradeDataLoader().loadTrades(session, filePath);
 
         VolumeTradedWithEntityYTDExtractor extractor = new VolumeTradedWithEntityYTDExtractor();
