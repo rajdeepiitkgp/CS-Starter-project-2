@@ -22,8 +22,9 @@ public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetada
 
     @Override
     public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades) {
-        String query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        String query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TraderId='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
+                rfq.getTraderId(),
                 since,
                 to);
         System.out.println("Year:" + query);
@@ -42,8 +43,9 @@ public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetada
         setSince(lastMonth.getYear() + "-" + (lastMonth.getMonthOfYear() < 10 ? "0" + lastMonth.getMonthOfYear() : lastMonth.getMonthOfYear()) + "-01");
         setTo(lastMonth.getYear() + "-" + (lastMonth.getMonthOfYear() < 10 ? "0" + lastMonth.getMonthOfYear() : lastMonth.getMonthOfYear()) + "-" + new DateTime(DateTime.now().getYear(), DateTime.now().getMonthOfYear(), 1, 0, 0).minusDays(1).getDayOfMonth());
 
-        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TraderId='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
+                rfq.getTraderId(),
                 since,
                 to);
         System.out.println("Month: " + query);
@@ -62,8 +64,9 @@ public class OverallVolumeTradedWithEntityPastYearExtractor implements RfqMetada
         setSince(monday.getYear() + "-" + (monday.getMonthOfYear() < 10 ? "0" + monday.getMonthOfYear() : monday.getMonthOfYear()) + "-" + (monday.getDayOfMonth() < 10 ? "0" + monday.getDayOfMonth() : monday.getDayOfMonth()));
         setTo(sunday.getYear() + "-" + (sunday.getMonthOfYear() < 10 ? "0" + sunday.getMonthOfYear() : sunday.getMonthOfYear()) + "-" + (sunday.getDayOfMonth() < 10 ? "0" + sunday.getDayOfMonth() : sunday.getDayOfMonth()));
 
-        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
+        query = String.format("SELECT sum(LastQty) from trade where CustomerID='%s' AND TraderId='%s' AND TradeDate >= '%s' AND TradeDate <= '%s'",
                 rfq.getCustomerId(),
+                rfq.getTraderId(),
                 since,
                 to);
         System.out.println("Week: " + query);

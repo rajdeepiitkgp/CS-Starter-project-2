@@ -21,8 +21,8 @@ public class OverallVolumeTradedWithEntityPastYearExtractorTest extends Abstract
         rfq.setId("732");
         rfq.setEntityId(5561279226039690843L);
         rfq.setIsin("AT0000A10683");
-        rfq.setCustomerId(13002L );
-        rfq.setTraderId(8514623710987345030L);
+        rfq.setCustomerId(14000L );
+        rfq.setTraderId(7514623710987345031L);
         rfq.setPrice(121.99);
         rfq.setSide("2");
     }
@@ -45,11 +45,11 @@ public class OverallVolumeTradedWithEntityPastYearExtractorTest extends Abstract
 
         Object result1 = meta.get(RfqMetadataFieldNames.overallVolumeTradedPastMonth);
 
-        assertEquals(250000L, result1);
+        assertEquals(3500000L, result1);
 
         Object result2 = meta.get(RfqMetadataFieldNames.overallVolumeTradedPastYear);
 
-        assertEquals(150000L, result2);
+        assertEquals(5550000L, result2);
 
     }
 
